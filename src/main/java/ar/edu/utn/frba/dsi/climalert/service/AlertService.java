@@ -5,7 +5,6 @@ import ar.edu.utn.frba.dsi.climalert.domain.WeatherData;
 import ar.edu.utn.frba.dsi.climalert.mapper.AlertMapper;
 import ar.edu.utn.frba.dsi.climalert.repository.WeatherDataRepository;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
 
 @Service
 public class AlertService {
