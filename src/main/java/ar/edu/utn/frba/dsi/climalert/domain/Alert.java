@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 
 @Data
 public class Alert {
-  Long id;
-  double temperatura;
-  int humedad;
-  LocalDateTime fecha;
-  Boolean enviado;
+  private Long id;
+  private double temperatura;
+  private int humedad;
+  private LocalDateTime fecha;
+  private Boolean enviado;
 }

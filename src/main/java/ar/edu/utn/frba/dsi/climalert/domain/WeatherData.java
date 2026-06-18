@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 
 @Data
 public class WeatherData {
-  Long id;
-  double temperatura;
-  int humedad;
-  String condicion;
-  double velocidadViento;
-  LocalDateTime fecha;
+  private Long id;
+  private double temperatura;
+  private int humedad;
+  private String condicion;
+  private double velocidadViento;
+  private LocalDateTime fecha;
 }
