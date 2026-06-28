@@ -18,6 +18,8 @@ public class WeatherService {
   private String apiKey;
   @Value("${weather.location}")
   private String location;
+  @Value("${weather.lang}")
+  private String lang;
 
   public WeatherService(RestTemplate restTemplate, WeatherDataRepository repository, WeatherMapper mapper) {
     this.restTemplate = restTemplate;
@@ -26,7 +28,7 @@ public class WeatherService {
   }
 
   public void fetchAndStore() {
-    String url = apiUrl + "?key=" + apiKey + "&q=" + location;
+    String url = apiUrl + "?key=" + apiKey + "&q=" + location + "&lang=" + lang;
     WeatherDtoResponse response = restTemplate.getForObject(url, WeatherDtoResponse.class);
     weatherDataRepository.save(mapper.toDomain(response));
   }

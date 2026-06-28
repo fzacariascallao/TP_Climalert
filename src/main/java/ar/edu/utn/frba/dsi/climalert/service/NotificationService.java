@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import java.util.Arrays;
 
 @Service
 public class NotificationService {
@@ -12,23 +13,30 @@ public class NotificationService {
   @Value("${spring.mail.username}")
   private String from;
   @Value("${weather.alert.emails}")
-  private String[] destinatarios;
+  private String emailsStr;
 
   public NotificationService(JavaMailSender mailSender) {
     this.mailSender = mailSender;
   }
 
   public void sendAlert(WeatherData data) {
+    String[] destinatarios = emailsStr.split(",");
+    System.out.println("Enviando alerta");
+    System.out.println(Arrays.toString(destinatarios));
     String subject = "Alerta Climática - Condiciones Peligrosas";
     String body = """
             Se detectaron condiciones climáticas peligrosas:
             
+            Ubicacion: %s
+            Pais: %s
             Temperatura: %.1f°C
             Humedad: %d%%
             Condición: %s
             Viento: %.1f km/h
             Fecha: %s
             """.formatted(
+        data.getUbicacion(),
+        data.getPais(),
         data.getTemperatura(),
         data.getHumedad(),
         data.getCondicion(),
@@ -38,8 +46,7 @@ public class NotificationService {
 
     SimpleMailMessage mensaje = new SimpleMailMessage();
     mensaje.setFrom(from);
-    mensaje.setTo(destinatarios[0]);
-    mensaje.setCc(destinatarios[1], destinatarios[2]);
+    mensaje.setTo(destinatarios);
     mensaje.setSubject(subject);
     mensaje.setText(body);
     mailSender.send(mensaje);
