@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 @Service
@@ -21,7 +22,7 @@ public class NotificationService {
 
   public void sendAlert(WeatherData data) {
     String[] destinatarios = emailsStr.split(",");
-    System.out.println("Enviando alerta");
+    System.out.print("Enviando alerta a: ");
     System.out.println(Arrays.toString(destinatarios));
     String subject = "Alerta Climática - Condiciones Peligrosas";
     String body = """
@@ -41,7 +42,7 @@ public class NotificationService {
         data.getHumedad(),
         data.getCondicion(),
         data.getVelocidadViento(),
-        data.getFecha().toString()
+        data.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
     );
 
     SimpleMailMessage mensaje = new SimpleMailMessage();

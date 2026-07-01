@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 public class WeatherMapper {
   public WeatherData toDomain(WeatherDtoResponse dto) {
     WeatherData data = new WeatherData();
-    data.setUbicacion(dto.getLocation().getName());
-    data.setPais(dto.getLocation().getCountry());
-    data.setTemperatura(dto.getCurrent().getTempC());
-    data.setHumedad(dto.getCurrent().getHumidity());
-    data.setCondicion(dto.getCurrent().getCondition().getText());
-    data.setVelocidadViento(dto.getCurrent().getWindKph());
-    data.setUltimaActualizacion(dto.getCurrent().getLastUpdated());
+    data.setUbicacion(dto.location().name());
+    data.setPais(dto.location().country());
+    data.setTemperatura(dto.current().tempC());
+    data.setHumedad(dto.current().humidity());
+    data.setCondicion(dto.current().condition().text());
+    data.setVelocidadViento(dto.current().windKph());
+    data.setUltimaActualizacion(dto.current().lastUpdated());
     data.setFecha(LocalDateTime.now());
     return data;
   }
