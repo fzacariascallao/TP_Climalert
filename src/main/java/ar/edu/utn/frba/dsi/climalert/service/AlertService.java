@@ -10,6 +10,7 @@ public class AlertService {
   private final List<AlertRule> reglas;
   private final NotificationService notificationService;
   private final WeatherDataRepository weatherDataRepository;
+  private boolean estadoPrevio = false;
 
   public AlertService(List<AlertRule> reglas, NotificationService notificationService,
                       WeatherDataRepository weatherDataRepository) {
@@ -22,7 +23,11 @@ public class AlertService {
     WeatherData ultimo = weatherDataRepository.findLatest();
     if (ultimo == null) return;
 
-    boolean alerta = reglas.stream().anyMatch(r -> r.matches(ultimo));
-    if (alerta) notificationService.sendAlert(ultimo);
+    boolean alertaAhora = reglas.stream().anyMatch(r -> r.matches(ultimo));
+
+    if (alertaAhora && !estadoPrevio) {
+      notificationService.sendAlert(ultimo);
+    }
+    estadoPrevio = alertaAhora;
   }
 }
