@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class WeatherApiAdapter implements ClimaAdapter {
+public class WeatherApiAdapter implements WeatherAdapter {
   private final RestTemplate restTemplate;
   @Value("${weather.api.url}")
   private String apiUrl;
