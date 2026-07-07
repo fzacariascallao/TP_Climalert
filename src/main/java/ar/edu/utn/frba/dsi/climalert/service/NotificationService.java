@@ -24,11 +24,11 @@ public class NotificationService {
     String[] destinatarios = emailsStr.split(",");
     System.out.print("Enviando alerta a: ");
     System.out.println(Arrays.toString(destinatarios));
-    String subject = "Alerta Climática - Condiciones Peligrosas";
+    String subject = "Alerta Climática - Condiciones Peligrosas / Inusuales";
     String body = """
-            Se detectaron condiciones climáticas peligrosas:
+            Se detectaron las siguientes condiciones climáticas:
             
-            Ubicacion: %s
+            Ubicación: %s
             Pais: %s
             Temperatura: %.1f°C
             Humedad: %d%%
@@ -50,6 +50,12 @@ public class NotificationService {
     mensaje.setTo(destinatarios);
     mensaje.setSubject(subject);
     mensaje.setText(body);
-    mailSender.send(mensaje);
+
+    try {
+      mailSender.send(mensaje);
+      System.out.println("Email enviado exitosamente");
+    } catch (Exception e) {
+      System.err.println("Error al enviar email: " + e.getMessage());
+    }
   }
 }
